@@ -1,0 +1,15 @@
+==================
+box test
+==================
+
+(box :orientation "h"
+       :class "date"
+       :halign "end")
+	
+	
+---
+
+(source_file
+	(block
+		(widget_definition
+			(parameter_list))))

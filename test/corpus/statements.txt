@@ -1,0 +1,20 @@
+==================
+box test
+==================
+
+(box :orientation "h"
+       :class "date"
+       :halign "end")
+
+
+---
+
+(source_file
+  (widget
+     (box_widget
+      (box_widget_props
+        (string))
+      (box_widget_props
+        (string))
+      (box_widget_props
+        (string)))))

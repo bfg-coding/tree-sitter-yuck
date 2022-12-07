@@ -1,67 +1,38 @@
-const SYMBOL = choice(
-  ':',
-  seq('.', /[^(){}\[\]"'~;,@`\s]*/),
-  /[^#(){}\[\]"'~;,@`.:\s][^(){}\[\]"'~;,@`.:\s]*/,
-)
-
 module.exports = grammar({
   name: 'yuck',
   
-  word: $ => $.symbol,
-  
-  extras: $ => [
-    /\s/,
-    $.comment,
-  ],
-    
   rules: {
-            
-    symbol: $ => token(SYMBOL),
-    comment: $ => token(seq(';;', /.*/)),
-  
-    source_file: $ => repeat($._sexp),
-    
-    _sexp: $ => choice(
-      $._widgets,
-      $.symbol
+    // This starts the parse tree at the file level and reads the files
+    source_file: $ => repeat($._statement),
+
+    _statement: $ => choice(
+      $.widget
     ),
 
-    _widgets: $ => choice(
-      $.box
+    widget: $ => choice(
+      $.box_widget
     ),
     
-    box_props: $ => choice(
-      seq(':spacing', $.string),
-      seq(':orientation', $.string),
-      seq(':space-evenly', $.string),
-    ),
-    
-    box: $ => seq(
+    box_widget: $ => seq(
       '(',
       'box',
-      repeat($.box_props),
-      ')'   
+      repeat($.box_widget_props),
+      ')'
     ),
-    
-    string: $ => choice(
-      /:[^(){}\[\]"'~;,@`\s]+/,
-      seq(
-        '"',
-        repeat(choice(
-          token.immediate(prec(1, /[^"\\]+/)),
-          $.escape_sequence,
-        )),
-        '"',
-      ),
+
+    box_widget_props: $ => choice(
+        seq(':orientation', $.string),
+        seq(':class', $.string),
+        seq(':halign', $.string),
     ),
-    escape_sequence: $ => token.immediate(seq(
-      '\\',
-      choice(
-        /[^xu\d]/,
-        /\d{1,3}/,
-        /x[\da-fA-F]{2}/,
-        /u{[\da-fA-F]+}/,
-      ),
-    )),
+
+    string: $ => seq(
+      '"',
+      repeat(/./),
+      '"'
+    ),
+
+    identifier: $ => /[a-z]+/,
+    number: $ => /\d+/,
   }
 });

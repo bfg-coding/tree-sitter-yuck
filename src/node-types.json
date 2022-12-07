@@ -1,11 +1,95 @@
 [
   {
+    "type": "box_widget",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "box_widget_props",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "box_widget_props",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "widget",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "string",
     "named": true,
     "fields": {}
   },
   {
-    "type": "hello",
+    "type": "widget",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "box_widget",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": ":class",
+    "named": false
+  },
+  {
+    "type": ":halign",
+    "named": false
+  },
+  {
+    "type": ":orientation",
+    "named": false
+  },
+  {
+    "type": "box",
     "named": false
   }
 ]

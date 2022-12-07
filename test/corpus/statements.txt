@@ -10,14 +10,13 @@ box test
 ---
 
 (source_file
-  (widget
-     (box_widget
-      (box_widget_props
-        (string))
-      (box_widget_props
-        (string))
-      (box_widget_props
-        (string)))))
+   (box_widget
+    (box_props
+      (string))
+    (box_props
+      (string))
+    (box_props
+      (string))))
 
 
 ==================
@@ -33,14 +32,79 @@ widget test
 ---
 
 (source_file
-  (defs
-    (defwidget
-      (identifier)
-      (widget
-       (box_widget
-        (box_widget_props
-          (string))
-        (box_widget_props
-          (string))
-        (box_widget_props
-          (string)))))))
+  (defwidget
+    (identifier)
+     (box_widget
+      (box_props
+        (string))
+      (box_props
+        (string))
+      (box_props
+        (string)))))
+
+==================
+custom widget test
+==================
+
+(defwidget revealer-on-hover [var varname ?class ?duration ?transition]
+  (box :class "${class} revealer-on-hover"
+       :orientation "h"
+       :space-evenly false
+    (eventbox :class "eventbox"
+              :onhover "${eww} update ${varname}=true"
+              :onhoverlost "${eww} update ${varname}=false"
+      (box :space-evenly false
+        (revealer :reveal var
+                  :transition {transition ?: "sliderright"}
+                  :duration {duration ?: "500ms"}
+          (children :nth 0))
+        (children :nth 1)))))
+
+
+---
+
+(source_file
+      (defwidget
+        (identifier)
+        (vars
+          (identifier))
+        (vars
+          (identifier))
+        (vars
+          (identifier))
+        (vars
+          (identifier))
+        (vars
+          (identifier))
+        (box_widget
+          (box_props
+            (string))
+          (box_props
+            (string))
+          (box_props
+            (identifier))
+          (eventbox_widget
+            (eventbox_props
+              (string))
+            (eventbox_props
+              (string))
+            (eventbox_props
+              (string))
+            (box_widget
+              (box_props
+                (identifier))
+              (revealer_widget
+                (revealer_props
+                  (identifier))
+                (revealer_props
+                  (conditional
+                    (identifier)
+                    (string)))
+                (revealer_props
+                  (conditional
+                    (identifier)
+                    (string)))
+                (children
+                  (number)))
+              (children
+                (number)))))))

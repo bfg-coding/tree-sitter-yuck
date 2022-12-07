@@ -7,16 +7,19 @@ module.exports = grammar({
 
     // Statements a yuck file can make
     _statement: $ => choice(
-      $.widget,
-      $.defs
+      $._widget,
+      $._defs
     ),
 
     // Widget list
-    widget: $ => choice(
-      $.box_widget
+    _widget: $ => choice(
+      $.box_widget,
+      $.eventbox_widget,
+      $.revealer_widget,
+      $.children
     ),
     
-    defs: $ => choice(
+    _defs: $ => choice(
       $.defwidget
     ),
 
@@ -25,9 +28,15 @@ module.exports = grammar({
        'defwidget',
        $.identifier,
        '[',
+       optional(repeat($.vars)),
        ']',
-       repeat($.widget),
+       repeat($._widget),
        ')'
+    ),
+
+    vars: $ => choice(
+      $.identifier,
+      seq('?', $.identifier)
     ),
 
 
@@ -35,16 +44,56 @@ module.exports = grammar({
     box_widget: $ => seq(
       '(',
       'box',
-      repeat($.box_widget_props),
+      optional(repeat($.box_props)),
+      optional(repeat($._widget)),
       ')'
     ),
 
-    box_widget_props: $ => choice(
+    box_props: $ => choice(
         seq(':orientation', $.string),
         seq(':class', $.string),
         seq(':halign', $.string),
+        seq(':space-evenly', $.identifier) // TODO: create boolean
     ),
 
+    // Eventbox
+    eventbox_widget: $ => seq(
+      '(',
+      'eventbox',
+      repeat($.eventbox_props),
+      repeat($._widget),
+      ')'
+    ),
+
+    eventbox_props: $ => choice(
+      seq(':class', $.string),
+      seq(':onhover', $.string),
+      seq(':onhoverlost', $.string)
+    ),
+
+    //revealer
+    revealer_widget: $ => seq(
+      '(',
+      'revealer',
+      repeat($.revealer_props),
+      repeat($._widget),
+      ')'
+    ),
+
+    revealer_props: $ => choice(
+      seq(':reveal', $.identifier),
+      seq(':transition', choice($.string, $.conditional)),
+      seq(':duration', choice($.string, $.conditional))
+    ),
+
+    // Children
+    children: $ => seq(
+      '(',
+      'children',
+      ':nth',
+      $.number,
+      ')'
+    ),
 
     // Data types
     string: $ => seq(
@@ -53,8 +102,17 @@ module.exports = grammar({
       '"'
     ),
 
+    // Conditional
+    conditional: $ => seq(
+      '{',
+      $.identifier,
+      '?:',
+      $.string, // Maybe any data type
+      '}'
+    ),
+
     // TODO: Add _ and - as well as captials
-    identifier: $ => /[a-z]+/,
+    identifier: $ => /[a-zA-Z-_]+/,
     number: $ => /\d+/,
   }
 });

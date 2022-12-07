@@ -18,3 +18,29 @@ box test
         (string))
       (box_widget_props
         (string)))))
+
+
+==================
+widget test
+==================
+
+(defwidget testwidget []
+  (box :orientation "h"
+       :class "date"
+       :halign "end"))
+
+
+---
+
+(source_file
+  (defs
+    (defwidget
+      (identifier)
+      (widget
+       (box_widget
+        (box_widget_props
+          (string))
+        (box_widget_props
+          (string))
+        (box_widget_props
+          (string)))))))

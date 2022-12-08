@@ -111,7 +111,7 @@ module.exports = grammar({
       '}'
     ),
 
-    // TODO: Add _ and - as well as captials
+    // TODO: Add boolean
     identifier: $ => /[a-zA-Z-_]+/,
     number: $ => /\d+/,
   }

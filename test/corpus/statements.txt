@@ -97,21 +97,91 @@ conditional widget test
 ---
 
 (source_file
-  (widget
-    (reserved_widget)
-    (widget_props
-      (identifier)
+      (widget
+        (reserved_widget)
+        (widget_props
+          (identifier)
+          (identifier))
+        (widget_props
+          (identifier)
+          (conditional
+            (identifier)
+            (string)))
+        (widget_props
+          (identifier)
+          (conditional
+            (identifier)
+            (string)))))
+
+
+==================
+boolean test
+==================
+
+(defwidget revealer-on-hover [var varname ?class ?duration ?transition]
+  (box :class "${class} revealer-on-hover"
+       :orientation "h"
+       :space-evenly false))
+
+
+---
+
+(source_file
+      (defwidget
+        (reserved_defs)
+        (identifier)
+        (vars
+          (identifier))
+        (vars
+          (identifier))
+        (vars
+          (identifier))
+        (vars
+          (identifier))
+        (vars
+          (identifier))
+        (widget
+          (reserved_widget)
+          (widget_props
+            (identifier)
+            (string
+              (template_subsitution
+                (identifier))))
+          (widget_props
+            (identifier)
+            (string))
+          (widget_props
+            (identifier)
+            (boolean)))))
+
+==================
+child widget test
+==================
+
+(defwidget revealer-on-hover [var]
+  (box :space-evenly false
+    (eventbox :class "eventbox")))
+
+
+---
+
+(source_file
+  (defwidget
+    (reserved_defs)
+    (identifier)
+    (vars
       (identifier))
-    (widget_props
-      (identifier)
-      (conditional
+    (widget
+      (reserved_widget)
+      (widget_props
         (identifier)
-        (string)))
-    (widget_props
-      (identifier)
-      (conditional
-        (identifier)
-        (string)))))
+        (boolean))
+      (widget
+        (reserved_widget)
+        (widget_props
+          (identifier)
+          (string))))))
+
 
 ==================
 custom widget test
@@ -134,4 +204,79 @@ custom widget test
 
 ---
 
-(source_file)
+(source_file
+      (defwidget
+        (reserved_defs)
+        (identifier)
+        (vars
+          (identifier))
+        (vars
+          (identifier))
+        (vars
+          (identifier))
+        (vars
+          (identifier))
+        (vars
+          (identifier))
+        (widget
+          (reserved_widget)
+          (widget_props
+            (identifier)
+            (string
+              (template_subsitution
+                (identifier))))
+          (widget_props
+            (identifier)
+            (string))
+          (widget_props
+            (identifier)
+            (boolean))
+          (widget
+            (reserved_widget)
+            (widget_props
+              (identifier)
+              (string))
+            (widget_props
+              (identifier)
+              (string
+                (template_subsitution
+                  (identifier))
+                (template_subsitution
+                  (identifier))))
+            (widget_props
+              (identifier)
+              (string
+                (template_subsitution
+                  (identifier))
+                (template_subsitution
+                  (identifier))))
+            (widget
+              (reserved_widget)
+              (widget_props
+                (identifier)
+                (boolean))
+              (widget
+                (reserved_widget)
+                (widget_props
+                  (identifier)
+                  (identifier))
+                (widget_props
+                  (identifier)
+                  (conditional
+                    (identifier)
+                    (string)))
+                (widget_props
+                  (identifier)
+                  (conditional
+                    (identifier)
+                    (string)))
+                (widget
+                  (reserved_widget)
+                  (widget_props
+                    (identifier)
+                    (identifier))))
+              (widget
+                (reserved_widget)
+                (widget_props
+                  (identifier)
+                  (identifier))))))))

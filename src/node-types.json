@@ -2,21 +2,7 @@
   {
     "type": "boolean",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "false",
-          "named": true
-        },
-        {
-          "type": "true",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "conditional",
@@ -152,6 +138,10 @@
         },
         {
           "type": "reserved_widget",
+          "named": true
+        },
+        {
+          "type": "widget",
           "named": true
         },
         {
@@ -298,7 +288,7 @@
   },
   {
     "type": "false",
-    "named": true
+    "named": false
   },
   {
     "type": "graph",
@@ -354,7 +344,7 @@
   },
   {
     "type": "true",
-    "named": true
+    "named": false
   },
   {
     "type": "{",

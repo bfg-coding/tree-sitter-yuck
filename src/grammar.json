@@ -17,7 +17,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_defs"
+          "name": "defwidget"
         }
       ]
     },
@@ -49,6 +49,21 @@
               "content": {
                 "type": "SYMBOL",
                 "name": "widget_props"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "widget"
               }
             },
             {
@@ -212,26 +227,17 @@
             },
             {
               "type": "SYMBOL",
-              "name": "identifier"
-            },
-            {
-              "type": "SYMBOL",
               "name": "boolean"
             },
             {
               "type": "SYMBOL",
               "name": "number"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
             }
           ]
-        }
-      ]
-    },
-    "_defs": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "defwidget"
         }
       ]
     },
@@ -341,12 +347,12 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "true"
+          "type": "STRING",
+          "value": "true"
         },
         {
-          "type": "SYMBOL",
-          "name": "false"
+          "type": "STRING",
+          "value": "false"
         }
       ]
     },
@@ -444,14 +450,6 @@
     "number": {
       "type": "PATTERN",
       "value": "\\d+"
-    },
-    "true": {
-      "type": "STRING",
-      "value": "true"
-    },
-    "false": {
-      "type": "STRING",
-      "value": "false"
     }
   },
   "extras": [

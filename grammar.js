@@ -15,7 +15,7 @@ module.exports = grammar({
     // Statements a yuck file can make
     _statement: $ => choice(
       $.widget,
-      $._defs
+      $.defwidget
     ),
 
     // Widget list
@@ -23,6 +23,7 @@ module.exports = grammar({
       '(',
       choice($.reserved_widget, $.identifier),
       optional(repeat($.widget_props)),
+      optional(repeat($.widget)),
       ')'
     ),
 
@@ -64,11 +65,7 @@ module.exports = grammar({
     widget_props: $ => seq(
       ':',
       $.identifier,
-      choice($.string, $.conditional, $.identifier, $.boolean, $.number)
-    ),
-
-    _defs: $ => choice(
-      $.defwidget
+      choice($.string, $.conditional, $.boolean, $.number, $.identifier)
     ),
 
     defwidget: $ => seq(
@@ -95,8 +92,8 @@ module.exports = grammar({
     ),
 
     boolean: $ => choice(
-      $.true,
-      $.false
+      'true',
+      'false'
     ),
 
     // Conditional
@@ -115,12 +112,9 @@ module.exports = grammar({
       '}'
     ),
 
-    // TODO: Add boolean
     symbol: $ => token(SYMBOL),
-    comment: $ => token(seq(';;', /.*/)),
+    comment: $ => token(seq(';', /.*/)),
     identifier: $ => /[a-zA-Z0-9-_]+/,
     number: $ => /\d+/,
-    true: $ => 'true',
-    false: $ => 'false'
   }
 });

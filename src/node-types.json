@@ -1,6 +1,6 @@
 [
   {
-    "type": "box_props",
+    "type": "boolean",
     "named": true,
     "fields": {},
     "children": {
@@ -8,57 +8,11 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "false",
           "named": true
         },
         {
-          "type": "string",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "box_widget",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "box_props",
-          "named": true
-        },
-        {
-          "type": "box_widget",
-          "named": true
-        },
-        {
-          "type": "children",
-          "named": true
-        },
-        {
-          "type": "eventbox_widget",
-          "named": true
-        },
-        {
-          "type": "revealer_widget",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "children",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "number",
+          "type": "true",
           "named": true
         }
       ]
@@ -92,131 +46,33 @@
       "required": true,
       "types": [
         {
-          "type": "box_widget",
-          "named": true
-        },
-        {
-          "type": "children",
-          "named": true
-        },
-        {
-          "type": "eventbox_widget",
-          "named": true
-        },
-        {
           "type": "identifier",
           "named": true
         },
         {
-          "type": "revealer_widget",
+          "type": "reserved_defs",
           "named": true
         },
         {
           "type": "vars",
           "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "eventbox_props",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
+        },
         {
-          "type": "string",
+          "type": "widget",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "eventbox_widget",
+    "type": "reserved_defs",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "box_widget",
-          "named": true
-        },
-        {
-          "type": "children",
-          "named": true
-        },
-        {
-          "type": "eventbox_props",
-          "named": true
-        },
-        {
-          "type": "eventbox_widget",
-          "named": true
-        },
-        {
-          "type": "revealer_widget",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
-    "type": "revealer_props",
+    "type": "reserved_widget",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "conditional",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "revealer_widget",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "box_widget",
-          "named": true
-        },
-        {
-          "type": "children",
-          "named": true
-        },
-        {
-          "type": "eventbox_widget",
-          "named": true
-        },
-        {
-          "type": "revealer_props",
-          "named": true
-        },
-        {
-          "type": "revealer_widget",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "source_file",
@@ -227,23 +83,11 @@
       "required": false,
       "types": [
         {
-          "type": "box_widget",
-          "named": true
-        },
-        {
-          "type": "children",
-          "named": true
-        },
-        {
           "type": "defwidget",
           "named": true
         },
         {
-          "type": "eventbox_widget",
-          "named": true
-        },
-        {
-          "type": "revealer_widget",
+          "type": "widget",
           "named": true
         }
       ]
@@ -252,7 +96,32 @@
   {
     "type": "string",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "template_subsitution",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "template_subsitution",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "vars",
@@ -270,7 +139,65 @@
     }
   },
   {
+    "type": "widget",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "reserved_widget",
+          "named": true
+        },
+        {
+          "type": "widget_props",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "widget_props",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "conditional",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "\"",
+    "named": false
+  },
+  {
+    "type": "${",
     "named": false
   },
   {
@@ -282,43 +209,7 @@
     "named": false
   },
   {
-    "type": ":class",
-    "named": false
-  },
-  {
-    "type": ":duration",
-    "named": false
-  },
-  {
-    "type": ":halign",
-    "named": false
-  },
-  {
-    "type": ":nth",
-    "named": false
-  },
-  {
-    "type": ":onhover",
-    "named": false
-  },
-  {
-    "type": ":onhoverlost",
-    "named": false
-  },
-  {
-    "type": ":orientation",
-    "named": false
-  },
-  {
-    "type": ":reveal",
-    "named": false
-  },
-  {
-    "type": ":space-evenly",
-    "named": false
-  },
-  {
-    "type": ":transition",
+    "type": ":",
     "named": false
   },
   {
@@ -342,7 +233,51 @@
     "named": false
   },
   {
+    "type": "button",
+    "named": false
+  },
+  {
+    "type": "calendar",
+    "named": false
+  },
+  {
+    "type": "centerbox",
+    "named": false
+  },
+  {
+    "type": "checkbox",
+    "named": false
+  },
+  {
     "type": "children",
+    "named": false
+  },
+  {
+    "type": "circular-progress",
+    "named": false
+  },
+  {
+    "type": "color-button",
+    "named": false
+  },
+  {
+    "type": "color-chooser",
+    "named": false
+  },
+  {
+    "type": "combo-box-text",
+    "named": false
+  },
+  {
+    "type": "deflisten",
+    "named": false
+  },
+  {
+    "type": "defpoll",
+    "named": false
+  },
+  {
+    "type": "defvar",
     "named": false
   },
   {
@@ -350,7 +285,23 @@
     "named": false
   },
   {
+    "type": "defwindow",
+    "named": false
+  },
+  {
     "type": "eventbox",
+    "named": false
+  },
+  {
+    "type": "expander",
+    "named": false
+  },
+  {
+    "type": "false",
+    "named": true
+  },
+  {
+    "type": "graph",
     "named": false
   },
   {
@@ -358,12 +309,52 @@
     "named": true
   },
   {
+    "type": "image",
+    "named": false
+  },
+  {
+    "type": "input",
+    "named": false
+  },
+  {
+    "type": "label",
+    "named": false
+  },
+  {
+    "type": "literal",
+    "named": false
+  },
+  {
     "type": "number",
     "named": true
   },
   {
+    "type": "overlay",
+    "named": false
+  },
+  {
+    "type": "progress",
+    "named": false
+  },
+  {
     "type": "revealer",
     "named": false
+  },
+  {
+    "type": "scale",
+    "named": false
+  },
+  {
+    "type": "scroll",
+    "named": false
+  },
+  {
+    "type": "transform",
+    "named": false
+  },
+  {
+    "type": "true",
+    "named": true
   },
   {
     "type": "{",

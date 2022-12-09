@@ -1,3 +1,10 @@
+const SYMBOL = choice(
+    ':',
+    seq('.', /[^(){}\[\]"'~;,@`\s]*/),
+    /[^#(){}\[\]"'~;,@`.:\s][^(){}\[\]"'~;,@`.:\s]*/,
+);
+
+
 module.exports = grammar({
   name: 'yuck',
   
@@ -7,30 +14,71 @@ module.exports = grammar({
 
     // Statements a yuck file can make
     _statement: $ => choice(
-      $._widget,
+      $.widget,
       $._defs
     ),
 
     // Widget list
-    _widget: $ => choice(
-      $.box_widget,
-      $.eventbox_widget,
-      $.revealer_widget,
-      $.children
+    widget: $ => seq(
+      '(',
+      choice($.reserved_widget, $.identifier),
+      optional(repeat($.widget_props)),
+      ')'
     ),
-    
+
+    reserved_widget: $ => choice(
+      'box',
+      'eventbox',
+      'revealer',
+      'combo-box-text',
+      'expander',
+      'revealer',
+      'checkbox',
+      'color-button',
+      'color-chooser',
+      'scale',
+      'progress',
+      'input',
+      'button',
+      'image',
+      'overlay',
+      'centerbox',
+      'scroll',
+      'label',
+      'literal',
+      'calendar',
+      'transform',
+      'circular-progress',
+      'graph',
+      'children'
+    ),
+
+    reserved_defs: $ => choice(
+      'defwidget',
+      'defvar',
+      'deflisten',
+      'defpoll',
+      'defwindow'
+    ),
+
+    widget_props: $ => seq(
+      ':',
+      $.identifier,
+      choice($.string, $.conditional, $.identifier, $.boolean, $.number)
+    ),
+
     _defs: $ => choice(
       $.defwidget
     ),
 
     defwidget: $ => seq(
        '(',
-       'defwidget',
+       $.reserved_defs,
        $.identifier,
        '[',
        optional(repeat($.vars)),
        ']',
-       repeat($._widget),
+       repeat($.widget),
        ')'
     ),
 
@@ -39,67 +87,16 @@ module.exports = grammar({
       seq('?', $.identifier)
     ),
 
-
-    // Box Widget
-    box_widget: $ => seq(
-      '(',
-      'box',
-      optional(repeat($.box_props)),
-      optional(repeat($._widget)),
-      ')'
-    ),
-
-    box_props: $ => choice(
-        seq(':orientation', $.string),
-        seq(':class', $.string),
-        seq(':halign', $.string),
-        seq(':space-evenly', $.identifier) // TODO: create boolean
-    ),
-
-    // Eventbox
-    eventbox_widget: $ => seq(
-      '(',
-      'eventbox',
-      repeat($.eventbox_props),
-      repeat($._widget),
-      ')'
-    ),
-
-    eventbox_props: $ => choice(
-      seq(':class', $.string),
-      seq(':onhover', $.string),
-      seq(':onhoverlost', $.string)
-    ),
-
-    //revealer
-    revealer_widget: $ => seq(
-      '(',
-      'revealer',
-      repeat($.revealer_props),
-      repeat($._widget),
-      ')'
-    ),
-
-    revealer_props: $ => choice(
-      seq(':reveal', $.identifier),
-      seq(':transition', choice($.string, $.conditional)),
-      seq(':duration', choice($.string, $.conditional))
-    ),
-
-    // Children
-    children: $ => seq(
-      '(',
-      'children',
-      ':nth',
-      $.number,
-      ')'
-    ),
-
     // Data types
     string: $ => seq(
       '"',
-      repeat(/./),
+      repeat(choice($.template_subsitution, /./)),
       '"'
+    ),
+
+    boolean: $ => choice(
+      $.true,
+      $.false
     ),
 
     // Conditional
@@ -111,8 +108,19 @@ module.exports = grammar({
       '}'
     ),
 
+    // Template subsitution
+    template_subsitution: $ => seq(
+      '${',
+      $.identifier,
+      '}'
+    ),
+
     // TODO: Add boolean
-    identifier: $ => /[a-zA-Z-_]+/,
+    symbol: $ => token(SYMBOL),
+    comment: $ => token(seq(';;', /.*/)),
+    identifier: $ => /[a-zA-Z0-9-_]+/,
     number: $ => /\d+/,
+    true: $ => 'true',
+    false: $ => 'false'
   }
 });

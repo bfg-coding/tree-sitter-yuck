@@ -10,12 +10,16 @@ box test
 ---
 
 (source_file
-   (box_widget
-    (box_props
+  (widget
+    (reserved_widget)
+    (widget_props
+      (identifier)
       (string))
-    (box_props
+    (widget_props
+      (identifier)
       (string))
-    (box_props
+    (widget_props
+      (identifier)
       (string))))
 
 
@@ -31,15 +35,82 @@ widget test
 
 ---
 
+ (source_file
+      (defwidget
+        (reserved_defs)
+        (identifier)
+        (widget
+          (reserved_widget)
+          (widget_props
+            (identifier)
+            (string))
+          (widget_props
+            (identifier)
+            (string))
+          (widget_props
+            (identifier)
+            (string)))))
+
+==================
+tempate subsitution
+==================
+
+(eventbox :class "eventbox"
+          :onhover "${eww} update ${varname}=true"
+          :onhoverlost "${eww} update ${varname}=false")
+
+
+---
+
 (source_file
-  (defwidget
-    (identifier)
-     (box_widget
-      (box_props
-        (string))
-      (box_props
-        (string))
-      (box_props
+      (widget
+        (reserved_widget)
+        (widget_props
+          (identifier)
+          (string))
+        (widget_props
+          (identifier)
+          (string
+            (template_subsitution
+              (identifier))
+            (template_subsitution
+              (identifier))))
+        (widget_props
+          (identifier)
+          (string
+            (template_subsitution
+              (identifier))
+            (template_subsitution
+              (identifier))))))
+
+
+
+==================
+conditional widget test
+==================
+
+(revealer :reveal var
+          :transition {transition ?: "sliderright"}
+          :duration {duration ?: "500ms"})
+
+
+---
+
+(source_file
+  (widget
+    (reserved_widget)
+    (widget_props
+      (identifier)
+      (identifier))
+    (widget_props
+      (identifier)
+      (conditional
+        (identifier)
+        (string)))
+    (widget_props
+      (identifier)
+      (conditional
+        (identifier)
         (string)))))
 
 ==================
@@ -63,48 +134,4 @@ custom widget test
 
 ---
 
-(source_file
-      (defwidget
-        (identifier)
-        (vars
-          (identifier))
-        (vars
-          (identifier))
-        (vars
-          (identifier))
-        (vars
-          (identifier))
-        (vars
-          (identifier))
-        (box_widget
-          (box_props
-            (string))
-          (box_props
-            (string))
-          (box_props
-            (identifier))
-          (eventbox_widget
-            (eventbox_props
-              (string))
-            (eventbox_props
-              (string))
-            (eventbox_props
-              (string))
-            (box_widget
-              (box_props
-                (identifier))
-              (revealer_widget
-                (revealer_props
-                  (identifier))
-                (revealer_props
-                  (conditional
-                    (identifier)
-                    (string)))
-                (revealer_props
-                  (conditional
-                    (identifier)
-                    (string)))
-                (children
-                  (number)))
-              (children
-                (number)))))))
+(source_file)

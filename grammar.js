@@ -7,7 +7,9 @@ const SYMBOL = choice(
 
 module.exports = grammar({
   name: 'yuck',
-  
+
+  word: $ => $.identifier,
+
   rules: {
     // This starts the parse tree at the file level and reads the files
     source_file: $ => repeat($._statement),
@@ -71,17 +73,20 @@ module.exports = grammar({
     defwidget: $ => seq(
        '(',
        $.reserved_defs,
-       $.identifier,
+       field('name', $.identifier),
        '[',
        optional(repeat($.vars)),
        ']',
-       repeat($.widget),
+       repeat(choice($.widget, $.string)),
        ')'
     ),
 
-    vars: $ => choice(
-      $.identifier,
-      seq('?', $.identifier)
+    vars: $ => field(
+      'name',
+      choice(
+        $.identifier,
+        seq('?', $.identifier)
+      )
     ),
 
     // Data types

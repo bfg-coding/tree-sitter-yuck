@@ -1,5 +1,6 @@
 {
   "name": "yuck",
+  "word": "identifier",
   "rules": {
     "source_file": {
       "type": "REPEAT",
@@ -253,8 +254,12 @@
           "name": "reserved_defs"
         },
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
         },
         {
           "type": "STRING",
@@ -282,8 +287,17 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SYMBOL",
-            "name": "widget"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "widget"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "string"
+              }
+            ]
           }
         },
         {
@@ -293,26 +307,30 @@
       ]
     },
     "vars": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "identifier"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "?"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "identifier"
-            }
-          ]
-        }
-      ]
+      "type": "FIELD",
+      "name": "name",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "identifier"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "?"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            ]
+          }
+        ]
+      }
     },
     "string": {
       "type": "SEQ",
@@ -434,7 +452,7 @@
         "members": [
           {
             "type": "STRING",
-            "value": ";;"
+            "value": ";"
           },
           {
             "type": "PATTERN",

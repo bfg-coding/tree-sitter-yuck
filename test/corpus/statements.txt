@@ -280,3 +280,46 @@ custom widget test
                 (widget_props
                   (identifier)
                   (identifier))))))))
+
+
+==================
+multi parameter for props test
+==================
+
+;; Launcher Widgets ;;
+(defwidget launcher []
+  (box :orientation "h"
+       :space-evenly "false"
+       :spacing -15
+  (button :class "launcher_icon"
+          :onclick "scripts/popup launcher" "")))
+
+
+---
+
+(source_file
+      (ERROR
+        (comment))
+      (defwidget
+        (reserved_defs)
+        (identifier)
+        (widget
+          (reserved_widget)
+          (widget_props
+            (identifier)
+            (string))
+          (widget_props
+            (identifier)
+            (string))
+          (widget_props
+            (identifier)
+            (identifier))
+          (widget
+            (reserved_widget)
+            (widget_props
+              (identifier)
+              (string))
+            (widget_props
+              (identifier)
+              (string)
+              (string))))))

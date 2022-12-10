@@ -124,7 +124,7 @@
     "type": "vars",
     "named": true,
     "fields": {
-      "name": {
+      "var": {
         "multiple": true,
         "required": true,
         "types": [

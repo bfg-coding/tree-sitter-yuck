@@ -323,3 +323,79 @@ multi parameter for props test
               (identifier)
               (string)
               (string))))))
+
+==================
+literal witdget test
+==================
+
+(defwidget workspaces []
+  (box :class "workspaces"
+    (literal :content {wm-tags})))
+
+---
+
+(source_file
+  (defwidget
+    (reserved_defs)
+    (identifier)
+    (widget
+      (reserved_widget)
+      (widget_props
+        (identifier)
+        (string))
+      (widget
+        (reserved_widget)
+        (widget_props
+          (identifier)
+          (literal
+            (identifier)))))))
+
+==================
+deflistn witdget test
+==================
+
+(deflisten wm-tags "leftwm-state -w 0 -t ~/.config/leftwm/template.liquid")
+
+---
+
+(source_file
+  (defwidget
+    (reserved_defs)
+    (identifier)
+    (string)))
+
+==================
+conditional body witdget test
+==================
+
+(box :class "focus-window"
+     :orientation "h"
+     :space-evenly true
+     :halign "center"
+  { window_title != "" ? "${window_title}" : "Arch-Linux" })
+
+---
+
+(source_file
+      (widget
+        (reserved_widget)
+        (widget_props
+          (identifier)
+          (string))
+        (widget_props
+          (identifier)
+          (string))
+        (widget_props
+          (identifier)
+          (boolean))
+        (widget_props
+          (identifier)
+          (string)
+          (conditional
+            (identifier)
+            (comparison_operators)
+            (string)
+            (string
+              (template_subsitution
+                (identifier)))
+            (string)))))

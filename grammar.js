@@ -27,6 +27,11 @@ module.exports = grammar({
       ')'
     ),
 
+    _reserved: $ => choice(
+      $.reserved_defs,
+      $.reserved_widget
+    ),
+
     reserved_widget: $ => choice(
       'box',
       'eventbox',
@@ -62,11 +67,38 @@ module.exports = grammar({
       'defwindow'
     ),
 
+    _operators: $ => choice(
+      // mathatical
+      "+",
+      "-",
+      "*",
+      "/",
+      "%",
+      // elvis (else is) operator
+      "?:",
+      // Safe access
+      "?."
+    ),
+
+    comparison_operators: $ => choice(
+      // comparisons
+      "==",
+      "!=",
+      "<",
+      ">",
+      "<=",
+      ">=",
+      // boolean
+      "||",
+      "&&",
+      "!",
+    ),
+
     widget_props: $ => seq(
       ':',
       $.identifier,
       repeat(
-        choice($.string, $.conditional, $.boolean, $.number, $.identifier),
+        choice($.string, $.conditional, $.boolean, $.number, $.literal, $.identifier),
       ),
     ),
 
@@ -74,11 +106,19 @@ module.exports = grammar({
        '(',
        $.reserved_defs,
        field('name', $.identifier),
-       '[',
-       optional(repeat($.vars)),
-       ']',
+       optional(seq(
+         '[',
+         optional(repeat($.vars)),
+         ']',
+       )),
        repeat(choice($.widget, $.string)),
        ')'
+    ),
+
+    literal: $ => seq(
+      "{",
+      $.identifier,
+      "}"
     ),
 
     vars: $ => field(
@@ -104,10 +144,33 @@ module.exports = grammar({
     // Conditional
     conditional: $ => seq(
       '{',
-      $.identifier,
-      '?:',
-      $.string, // Maybe any data type
+      choice(
+        $._ternary_seq,
+        $._elvis_seq
+      ),
       '}'
+    ),
+
+    _conditional: $ => seq(
+      $._any,
+      optional($.comparison_operators),
+      optional($._any)
+    ),
+
+    // Ternary
+    _ternary_seq: $ => seq(
+      $._conditional,
+      "?",
+      $._any,
+      ":",
+      $._any
+    ),
+
+    // Elvis
+    _elvis_seq: $ => seq(
+      $._conditional,
+      "?:",
+      $._any
     ),
 
     // Template subsitution
@@ -121,5 +184,6 @@ module.exports = grammar({
     comment: $ => token(seq(';', /.*/)),
     identifier: $ => /[a-zA-Z0-9-_]+/,
     number: $ => /\d+/,
+    _any: $ => choice($.string, $.identifier, $.number, $._reserved, $.boolean)
   }
 });
